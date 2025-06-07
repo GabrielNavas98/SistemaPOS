@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  SELLER
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  lastname      String
+  email         String    @unique
+  phone         String
+  dni           String
+  cuil          String
+  cuit          String?
+  role          UserRole
+  address       String?
+  city          String?
+  country       String?
+  birthdate     DateTime?
+  createdAt     DateTime  @default(now())
+  deletedAt     DateTime?
+
+  sales         Sale[]
+  cashRegisters CashRegister[]
+  accounts      Account[]
+}
+
+model Account {
+  id           String   @id @default(uuid())
+  userId       String
+  provider     String
+  providerId   String
+  passwordHash String?
+  createdAt    DateTime @default(now())
+
+  user         User @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerId])
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime?
+
+  products    Product[]
+}
+
+model Product {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  price       Float
+  discount    Float?
+  stock       Int
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime?
+
+  categoryId  String?
+  category    Category?  @relation(fields: [categoryId], references: [id])
+  saleItems   SaleItem[]
+}
+
+model Sale {
+  id          String    @id @default(uuid())
+  userId      String
+  totalAmount Float
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime?
+
+  user        User          @relation(fields: [userId], references: [id])
+  items       SaleItem[]
+  payments    SalePayment[]
+}
+
+model SaleItem {
+  id         String   @id @default(uuid())
+  saleId     String
+  productId  String
+  quantity   Int
+  unitPrice  Float
+
+  sale       Sale     @relation(fields: [saleId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+}
+
+model PaymentMethod {
+  id            String    @id @default(uuid())
+  name          String    @unique
+  description   String?
+  createdAt     DateTime  @default(now())
+  deletedAt     DateTime?
+
+  salePayments  SalePayment[]
+}
+
+model SalePayment {
+  id               String         @id @default(uuid())
+  saleId           String
+  paymentMethodId  String
+  amount           Float
+
+  sale             Sale           @relation(fields: [saleId], references: [id])
+  paymentMethod    PaymentMethod  @relation(fields: [paymentMethodId], references: [id])
+}
+
+model CashRegister {
+  id             String    @id @default(uuid())
+  userId         String
+  openTime       DateTime
+  closeTime      DateTime?
+  openingAmount  Float
+  closingAmount  Float?
+  totalSales     Float     @default(0)
+  notes          String?
+  deletedAt      DateTime?
+
+  user           User      @relation(fields: [userId], references: [id])
+}
