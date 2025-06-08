@@ -1,21 +1,17 @@
-import { verifyToken } from './jwt'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { NextRequest, NextResponse } from 'next/server'
 
-export function withAuth(handler: (req: NextRequest, user: unknown) => Promise<NextResponse>) {
-  return async function (req: NextRequest) {
-    const authHeader = req.headers.get('authorization')
-    const token = authHeader?.split(' ')[1]
+export function withAuth(
+  handler: (req: NextRequest, ctx: { params: {id: string} }, session: unknown) => Promise<NextResponse>
+) {
+  return async function (req: NextRequest, ctx: { params: {id: string} }) {
+    const session = await getServerSession(authOptions)
 
-    if (!token) {
-      return NextResponse.json({ error: 'Token missing' }, { status: 401 })
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const user = verifyToken(token)
-
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 })
-    }
-
-    return handler(req, user)
+    return handler(req, ctx, session)
   }
 }

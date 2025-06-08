@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
-import { signToken } from '@/lib/jwt'
+import jwt from 'jsonwebtoken'
 
 export async function POST(req: Request) {
   const { email, password } = await req.json()
@@ -18,8 +18,8 @@ export async function POST(req: Request) {
     }
   })
 
-  if (!account || !account.passwordHash) {
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+  if (!account || !account.passwordHash || !account.user) {
+    return NextResponse.json({ error: 'Credenciales inválidas' }, { status: 401 })
   }
 
   const isValid = await bcrypt.compare(password, account.passwordHash)
@@ -30,18 +30,14 @@ export async function POST(req: Request) {
 
   const { user } = account
 
-  return NextResponse.json({
-    message: 'Login successful',
-    token: signToken({
+  const token = jwt.sign(
+    {
       userId: user.id,
       email: user.email,
       role: user.role
-    }),
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role
-    }
-  })
+    },
+    process.env.JWT_SECRET!,
+    { expiresIn: '1d' }
+  )
+  return NextResponse.json({ token })
 }

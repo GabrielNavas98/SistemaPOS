@@ -2,9 +2,8 @@ import { prisma } from '@/lib/prisma'
 import { withAuth } from '@/lib/withAuth'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const PUT = withAuth(async (req: NextRequest) => {
-    const { searchParams } = new URL(req.url)
-    const id = searchParams.get('id')
+export const PUT = withAuth(async (req: NextRequest, ctx) => {
+    const { id } = ctx.params
 
     if (!id) {
         return NextResponse.json({ error: 'Product ID is required' }, { status: 400 })
@@ -28,9 +27,8 @@ export const PUT = withAuth(async (req: NextRequest) => {
     return NextResponse.json(updated)
 })
 
-export const DELETE = withAuth(async (req: NextRequest) => {
-    const { searchParams } = new URL(req.url)
-    const id = searchParams.get('id')
+export const DELETE = withAuth(async (req: NextRequest, ctx) => {
+    const { id } = ctx.params
 
     if (!id) {
         return NextResponse.json({ error: 'Product ID is required' }, { status: 400 })

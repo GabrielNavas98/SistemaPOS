@@ -14,8 +14,11 @@ export function signToken(payload: AuthPayload, expiresIn: string = '1d'): strin
 
 export function verifyToken<T = unknown>(token: string): T | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as T
-  } catch {
+    const decoded = jwt.verify(token, JWT_SECRET)
+    return decoded as T
+  } catch (err) {
+    console.error('JWT Error:', err)
     return null
   }
 }
+
