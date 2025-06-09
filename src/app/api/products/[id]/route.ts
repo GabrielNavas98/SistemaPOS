@@ -10,7 +10,7 @@ export const PUT = withAuth(async (req: NextRequest, ctx) => {
     }
 
     const body = await req.json()
-    const { name, description, price, discount, stock, categoryId } = body
+    const { name, description, price, listPrice, discount, stock, categoryId } = body
 
     const updated = await prisma.product.update({
         where: { id },
@@ -18,6 +18,7 @@ export const PUT = withAuth(async (req: NextRequest, ctx) => {
             name,
             description,
             price: price !== undefined ? parseFloat(price) : undefined,
+            listPrice: listPrice !== undefined ? parseFloat(listPrice) : undefined,
             discount: discount !== undefined ? parseFloat(discount) : undefined,
             stock: stock !== undefined ? parseInt(stock) : undefined,
             categoryId

@@ -53,6 +53,11 @@ export function ProductTable({ initialData, categories }: Props) {
       cell: ({ row }) => `$${row.original.price.toFixed(2)}`,
     },
     {
+      accessorKey: "listPrice",
+      header: "Precio de lista",
+      cell: ({ row }) => `$${ row.original.listPrice ? row.original.listPrice.toFixed(2) : 0}`,
+    },
+    {
       accessorKey: "discount",
       header: "Descuento",
       cell: ({ row }) => row.original.discount ? `${row.original.discount}%` : 'Sin descuento'

@@ -22,9 +22,9 @@ export const GET = withAuth(async () => {
 export const POST = withAuth(async (req: NextRequest) => {
     const body = await req.json()
 
-    const { name, description, price, discount, stock, categoryId } = body
+    const { name, description, price, listPrice, discount, stock, categoryId } = body
 
-    if (!name || !price || !stock) {
+    if (!name || !price || !stock || !listPrice) {
         return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
@@ -33,6 +33,7 @@ export const POST = withAuth(async (req: NextRequest) => {
             name,
             description,
             price: parseFloat(price),
+            listPrice: parseFloat(listPrice),
             discount: discount ? parseFloat(discount) : undefined,
             stock: parseInt(stock),
             categoryId

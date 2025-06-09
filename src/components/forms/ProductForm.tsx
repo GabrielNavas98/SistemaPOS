@@ -17,6 +17,7 @@ import { api } from '@/lib/axios'
 const schema = z.object({
     name: z.string().min(2, 'Requerido'),
     price: z.coerce.number().positive(),
+    listPrice: z.coerce.number().positive(),
     discount: z.coerce.number().min(0).max(100),
     stock: z.coerce.number().int().nonnegative(),
     categoryId: z.string().uuid('Elegí una categoría'),
@@ -43,6 +44,7 @@ export function ProductForm({ mode, data, onClose }: Props) {
         defaultValues: {
             name: '',
             price: 0,
+            listPrice: 0,
             discount: 0,
             stock: 0,
             categoryId: '',
@@ -67,6 +69,7 @@ export function ProductForm({ mode, data, onClose }: Props) {
                     name: values.name,
                     description: values.description,
                     price: values.price,
+                    listPrice: values.listPrice,
                     discount: values.discount,
                     stock: values.stock,
                     categoryId: values.categoryId
@@ -76,6 +79,7 @@ export function ProductForm({ mode, data, onClose }: Props) {
                     name: values.name,
                     description: values.description,
                     price: values.price,
+                    listPrice: values.listPrice,
                     discount: values.discount,
                     stock: values.stock,
                     categoryId: values.categoryId
@@ -102,10 +106,17 @@ export function ProductForm({ mode, data, onClose }: Props) {
 
             <div className="flex gap-4">
                 <div className="flex-1 grid w-full max-w-sm items-center gap-3">
-                    <Label htmlFor='price'>Precio $</Label>
+                    <Label htmlFor='listPrice'>Precio de lista $</Label>
+                    <Input id='listPrice' type="number" step="0.01" {...register('listPrice')} placeholder="Precio" />
+                    {errors.listPrice && <p className="text-sm text-red-500">{errors.listPrice.message}</p>}
+                </div>
+                <div className="flex-1 grid w-full max-w-sm items-center gap-3">
+                    <Label htmlFor='price'>Precio al público $</Label>
                     <Input id='price' type="number" step="0.01" {...register('price')} placeholder="Precio" />
                     {errors.price && <p className="text-sm text-red-500">{errors.price.message}</p>}
                 </div>
+            </div>
+            <div className="flex gap-4">
                 <div className="flex-1 grid w-full max-w-sm items-center gap-3">
                     <Label htmlFor='discount'>Descuento %</Label>
                     <Input id='discount' type="number" step="1" {...register('discount')} placeholder="Descuento %" />

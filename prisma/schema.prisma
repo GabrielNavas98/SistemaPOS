@@ -68,6 +68,7 @@ model Product {
   id          String    @id @default(uuid())
   name        String
   description String?
+  listPrice   Float     @default(0)
   price       Float
   discount    Float?
   stock       Int

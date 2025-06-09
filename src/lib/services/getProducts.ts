@@ -5,12 +5,13 @@ export interface Product {
   id: string
   name: string
   price: number
-  discount: number
+  listPrice: number
+  discount: number | null
   stock: number
   category: {
     id: string
     name: string
-  }
+  } | null
 }
 
 export async function getServerProducts(): Promise<Product[]> {
