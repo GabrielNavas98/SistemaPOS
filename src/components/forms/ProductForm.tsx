@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { useEffect } from 'react'
 import { Label } from '../ui'
-import { useCategoryStore } from "@/store/categories"
+import { useCategoryStore } from "@/store/useCategoriesStore"
 import { ComboBox } from '../ui/ComboBox'
 import { useProductStore } from '@/store/useProductsStore'
 import { api } from '@/lib/axios'

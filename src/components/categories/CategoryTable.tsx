@@ -7,7 +7,7 @@ import { Button, Input } from "@/components/ui/index"
 import { PlusIcon } from "lucide-react"
 import { useEffect, useState } from 'react'
 import { FormModal } from "../modals/FormModal"
-import { useCategoryStore } from "@/store/categories"
+import { useCategoryStore } from "@/store/useCategoriesStore"
 import { deleteCategory } from "@/lib/services/categories/deleteCategories"
 import { toast } from "sonner"
 

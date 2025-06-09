@@ -8,7 +8,7 @@ import { PlusIcon } from "lucide-react"
 import { useEffect, useState } from 'react'
 import { FormModal } from "../modals/FormModal"
 import { Category } from "@/lib/services/getCategories"
-import { useCategoryStore } from "@/store/categories"
+import { useCategoryStore } from "@/store/useCategoriesStore"
 import { useProductStore } from "@/store/useProductsStore"
 import { deleteProduct } from "@/lib/services/products/deleteProducts"
 import { toast } from "sonner"

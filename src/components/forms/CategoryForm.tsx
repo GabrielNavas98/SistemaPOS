@@ -7,7 +7,7 @@ import { Input, Button, Label } from '@/components/ui/index'
 import { toast } from 'sonner'
 import { useEffect } from 'react'
 import { api } from '@/lib/axios'
-import { useCategoryStore } from '@/store/categories'
+import { useCategoryStore } from '@/store/useCategoriesStore'
 
 const schema = z.object({
     name: z.string().min(2, 'Nombre requerido'),

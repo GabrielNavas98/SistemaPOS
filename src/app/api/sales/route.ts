@@ -21,8 +21,8 @@ export const GET = withAuth(async () => {
   return NextResponse.json(sales)
 })
 
-export const POST = withAuth(async (req: NextRequest) => {
-  const { items, payments, userId }: CreateSaleInput = await req.json()
+export const POST = withAuth(async (req: NextRequest, ctx, session) => {
+  const { items, payments }: CreateSaleInput = await req.json()
 
   if (!Array.isArray(items) || items.length === 0) {
     return NextResponse.json({ error: 'Sale must contain items' }, { status: 400 })
@@ -35,7 +35,7 @@ export const POST = withAuth(async (req: NextRequest) => {
 
   const sale = await prisma.sale.create({
     data: {
-      userId: userId,
+      userId: session.user.id,
       totalAmount,
       items: {
         create: items.map((item) => ({

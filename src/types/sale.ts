@@ -12,5 +12,4 @@ export interface PaymentInput {
 export interface CreateSaleInput {
   items: SaleItemInput[]
   payments: PaymentInput[]
-  userId: string
 }
