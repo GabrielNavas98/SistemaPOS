@@ -1,12 +1,9 @@
 import { create } from 'zustand'
-
-interface ProductItem {
-  id: string
-  name: string
-  price: number
-  discount?: number
+import { Product } from "@/lib/services/getProducts"
+export interface ProductItem extends Product {
   quantity: number
 }
+
 
 interface SaleState {
   items: ProductItem[]

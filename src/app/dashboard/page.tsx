@@ -23,7 +23,12 @@ export default async function DashboardPage() {
         <main className="p-6 space-y-6">
             <DashboardActions cashRegister={cashRegister} />
             <DashboardSummaryCards />
-            <StatsDashboard initialData={{ products, stats }} />
+            <StatsDashboard initialData={{
+                products, stats: stats.labels.map((name, i) => ({
+                    name,
+                    total: stats.totals[i],
+                })),
+            }} />
         </main>
     )
 }

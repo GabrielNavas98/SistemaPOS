@@ -13,7 +13,7 @@ export async function getSalesStats(period: string, productId?: string): Promise
   return data
 }
 
-export async function getSalesStatsServer(period?: string, productId?: string) {
+export async function getSalesStatsServer(period?: string, productId?: string): Promise<SalesStatsResponse> {
   const now = new Date()
   let from: Date
 

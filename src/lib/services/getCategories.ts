@@ -4,7 +4,7 @@ import { api } from '../axios'
 export interface Category {
   id: string
   name: string
-  description: string
+  description: string | null
 }
 
 export async function getServerCategories(): Promise<Category[]> {

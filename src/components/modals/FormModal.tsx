@@ -12,7 +12,7 @@ interface Props {
     onClose: () => void
     mode: Mode
     type: Type
-    data?: unknown
+    data?: Partial<FormData> & { id: string }
 }
 
 export function FormModal({ open, onClose, mode, type, data }: Props) {
