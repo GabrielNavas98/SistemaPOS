@@ -1,19 +1,9 @@
 import { authOptions } from "@/lib/authOptions"
 import { api } from '@/lib/axios'
 import { prisma } from '@/lib/prisma'
+import { CashRegister } from "@/store/useCashRegisterStore"
 import { startOfDay } from 'date-fns'
 import { getServerSession } from 'next-auth'
-
-interface CashRegister {
-    id: string
-    openedAt: string
-    closedAt: string | null
-    openingAmount: number
-    closingAmount: number | null
-    totalSales: number
-    notes: string | null
-    userId: string
-}
 
 export async function openCashRegister(openingAmount: number): Promise<CashRegister> {
     const { data } = await api.post<{ data: CashRegister }>('/api/cashRegister/open', {

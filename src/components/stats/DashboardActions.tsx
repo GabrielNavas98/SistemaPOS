@@ -1,6 +1,6 @@
 'use client'
 import { Button } from "@/components/ui/button"
-import { useCashRegisterStore } from "@/store/useCashRegisterStore"
+import { CashRegister, useCashRegisterStore } from "@/store/useCashRegisterStore"
 import { Download, PlusCircle } from "lucide-react"
 import Link from "next/link"
 import { OpenCashRegisterModal } from "../modals/OpenCashRegisterModal"
@@ -8,16 +8,7 @@ import { CloseCashRegisterModal } from "../modals/CloseCashRegisterModal"
 import { useEffect } from "react"
 
 interface Props {
-    cashRegister: {
-        id: string
-        openedAt: string
-        closedAt: string | null
-        openingAmount: number
-        closingAmount: number | null
-        totalSales: number
-        notes: string | null
-        userId: string
-    } | null
+    cashRegister: CashRegister | null
 }
 
 export default function DashboardActions({ cashRegister }: Props) {

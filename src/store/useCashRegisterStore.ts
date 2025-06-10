@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 import { openCashRegister, closeCashRegister } from '@/lib/services/cashRegister/actionsCashRegister'
 
-interface CashRegister {
+export interface CashRegister {
     id: string
-    openedAt: string
-    closedAt: string | null
+    openTime: Date
+    closeTime: Date | null
     openingAmount: number
     closingAmount: number | null
     totalSales: number
@@ -30,7 +30,7 @@ export const useCashRegisterStore = create<CashRegisterStore>((set) => ({
 
     hydrate: (data) => set({
         data,
-        isOpen: !data.closedAt,
+        isOpen: !data.closeTime,
     }),
 
     open: async (amount) => {
