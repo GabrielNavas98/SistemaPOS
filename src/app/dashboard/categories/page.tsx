@@ -2,7 +2,7 @@ import { redirect } from "next/navigation"
 import { CategoryTable } from "@/components/categories/CategoryTable"
 import { getServerCategories } from "@/lib/services/getCategories"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/authOptions"
 
 export const dynamic = "force-dynamic"
 

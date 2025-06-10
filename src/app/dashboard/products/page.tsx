@@ -3,7 +3,7 @@ import { ProductTable } from "@/components/products/ProductTable"
 import { getServerProducts } from "@/lib/services/getProducts"
 import { getServerCategories } from "@/lib/services/getCategories"
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from "@/lib/authOptions"
 
 export const dynamic = "force-dynamic"
 

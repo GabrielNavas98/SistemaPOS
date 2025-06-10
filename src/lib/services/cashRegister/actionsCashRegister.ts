@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from "@/lib/authOptions"
 import { api } from '@/lib/axios'
 import { prisma } from '@/lib/prisma'
 import { startOfDay } from 'date-fns'

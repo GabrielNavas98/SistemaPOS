@@ -1,6 +1,6 @@
 import StatsDashboard from "@/components/stats/StatsDashboard"
 import { getServerSession } from "next-auth"
-import { authOptions } from "../api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/authOptions"
 import { redirect } from "next/navigation"
 import { getSalesStatsServer } from "@/lib/services/sales/getSalesStats"
 import { getServerProducts } from "@/lib/services/getProducts"
