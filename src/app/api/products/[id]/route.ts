@@ -3,7 +3,7 @@ import { withAuth } from '@/lib/withAuth'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const PUT = withAuth(async (req: NextRequest, ctx) => {
-    const { id } = ctx.params
+    const { id } = await ctx.params
 
     if (!id) {
         return NextResponse.json({ error: 'Product ID is required' }, { status: 400 })
@@ -29,7 +29,7 @@ export const PUT = withAuth(async (req: NextRequest, ctx) => {
 })
 
 export const DELETE = withAuth(async (req: NextRequest, ctx) => {
-    const { id } = ctx.params
+    const { id } = await ctx.params
 
     if (!id) {
         return NextResponse.json({ error: 'Product ID is required' }, { status: 400 })

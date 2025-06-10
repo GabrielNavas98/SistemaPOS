@@ -2,8 +2,8 @@ import { prisma } from '@/lib/prisma'
 import { withAuth } from '@/lib/withAuth'
 import { NextRequest, NextResponse } from 'next/server'
 
-export const PUT = withAuth(async (req: NextRequest, { params }) => {
-  const { id } = params
+export const PUT = withAuth(async (req: NextRequest, ctx) => {
+  const { id } = await ctx.params
 
   if (!id) {
     return NextResponse.json({ error: 'Category ID is required' }, { status: 400 })
@@ -20,7 +20,7 @@ export const PUT = withAuth(async (req: NextRequest, { params }) => {
 })
 
 export const DELETE = withAuth(async (req: NextRequest, ctx) => {
-  const { id } = ctx.params
+  const { id } = await ctx.params
 
   if (!id) {
     return NextResponse.json({ error: 'Category ID is required' }, { status: 400 })
