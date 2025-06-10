@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from "@/lib/authOptions"
 import { NextRequest, NextResponse } from 'next/server'
 interface paramsType {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 interface sessionType {
@@ -11,7 +11,7 @@ interface sessionType {
 export function withAuth(
   handler: (req: NextRequest, ctx: paramsType, session: sessionType) => Promise<NextResponse>
 ) {
-  return async function (req: NextRequest, ctx: { params: { id: string } }) {
+  return async function (req: NextRequest, ctx: paramsType) {
     const session = await getServerSession(authOptions) as { user: { id: string } }
 
     if (!session) {
