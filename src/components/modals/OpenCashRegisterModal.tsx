@@ -33,7 +33,7 @@ export function OpenCashRegisterModal() {
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
             <DialogTrigger asChild>
-                <Button variant="default" className="gap-2 bg-green-500" disabled={loading}>
+                <Button variant="default" className="gap-2 bg-green-500 hover:cursor-pointer"  disabled={loading}>
                     <Lock size={16} />
                     Abrir caja
                 </Button>

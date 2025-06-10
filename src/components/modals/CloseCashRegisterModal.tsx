@@ -33,7 +33,7 @@ export function CloseCashRegisterModal() {
     return (
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
             <DialogTrigger asChild>
-                <Button variant="destructive" className="gap-2" disabled={loading}>
+                <Button variant="destructive" className="gap-2 hover:cursor-pointer" disabled={loading}>
                     <Lock size={16} />
                     Cerrar caja
                 </Button>
