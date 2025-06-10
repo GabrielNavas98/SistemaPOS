@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import { StringValue } from 'ms'
 
 const JWT_SECRET = process.env.JWT_SECRET as string
 
@@ -8,7 +9,7 @@ interface AuthPayload {
   role: string
 }
 
-export function signToken(payload: AuthPayload, expiresIn: string = '1d'): string {
+export function signToken(payload: AuthPayload, expiresIn: StringValue = '1d'): string {
   return jwt.sign(payload as jwt.JwtPayload, JWT_SECRET, { expiresIn })
 }
 
