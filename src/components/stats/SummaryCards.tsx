@@ -12,7 +12,7 @@ export interface SummaryCardProps {
 
 export default function DashboardSummaryCards() {
 
-  const { totalAmountToday, fetchSummary, totalSalesToday, averageSale, topProduct, lastSaleTime } = useSummaryStore()
+  const { totalAmountToday, fetchSummary, totalSalesToday, averageSale, topProduct } = useSummaryStore()
 
   useEffect(() => {
     fetchSummary()
