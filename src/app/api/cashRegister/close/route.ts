@@ -3,7 +3,7 @@ import { withAuth } from "@/lib/withAuth"
 import { NextRequest, NextResponse } from "next/server"
 import { startOfDay } from "date-fns"
 
-export const POST = withAuth(async (req: NextRequest, ctx, session) => {
+export const POST = withAuth(async (req: NextRequest, _, session) => {
     const userId = session.user.id
     const today = startOfDay(new Date())
      const { note } = await req.json()
